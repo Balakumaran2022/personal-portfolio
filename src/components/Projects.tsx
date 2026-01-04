@@ -42,6 +42,19 @@ const projects = [
     githubLink: "https://github.com/Balakumarancse2022/avccehostelmanagement",
     image: "/image.png",
   },
+  {
+    title: "SyncDesk",
+    description:
+      "SychDesk is an all-in-one smart web platform that helps organize meetings, manage files, track deadlines, validate submissions, and stay productive from a single unified dashboard.
+",
+    tech: ["Full Stack","React","Vite", "CRUD","Typescript", "Database"],
+    icon: Code2,
+    color: "from-emerald-400 to-teal-400",
+    demoType: "Live Demo",
+    demoLink: "https://sycndesk.netlify.app",
+    githubLink: "https://github.com/Balakumarancse2022/SyncDesk",
+    image: "https://play.google.com/store/apps/details?id=com.findsong.identifymusic",
+  },
 ];
 
 const Projects = () => {
