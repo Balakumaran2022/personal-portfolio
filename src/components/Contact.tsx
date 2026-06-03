@@ -65,7 +65,7 @@ const Contact = () => {
 
             <div className="flex gap-4 pt-2">
               <motion.a
-                href="https://github.com/Balakumarancse2022"
+                href="https://github.com/Balakumaran2022"
                 target="_blank"
                 className="p-4 rounded-xl bg-secondary border border-border hover:border-primary transition"
                 whileHover={{ scale: 1.05 }}

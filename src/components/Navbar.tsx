@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
   { name: "Achievements", href: "#achievements" },
+  { name: "Highlights", href: "#highlights" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -25,7 +27,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border"
+          ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -35,37 +37,43 @@ const Navbar = () => {
           {/* LOGO */}
           <a
             href="#"
-            className="font-heading font-bold text-xl sm:text-2xl md:text-3xl 
-                       max-w-[70%] truncate gradient-text"
+            className="font-heading font-bold text-lg sm:text-xl md:text-2xl 
+                       max-w-[70%] truncate gradient-text flex items-center gap-2"
           >
-           
+            Portfolio
           </a>
 
           {/* DESKTOP NAV */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-lg font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.name}
               </a>
             ))}
+            <div className="pl-4 border-l border-border">
+              <ThemeToggle />
+            </div>
           </div>
 
-          {/* MOBILE MENU BUTTON */}
-          <button
-            className="md:hidden flex-shrink-0 p-2 rounded-lg hover:bg-secondary transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-7 h-7" />
-            ) : (
-              <Menu className="w-7 h-7" />
-            )}
-          </button>
+          {/* MOBILE CONTROLS */}
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
+            <button
+              className="flex-shrink-0 p-2 rounded-lg hover:bg-secondary transition-colors text-foreground"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* MOBILE MENU */}
