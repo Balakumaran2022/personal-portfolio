@@ -12,7 +12,7 @@ const skillCategories = [
     dotColor: "bg-cyan-500",
     hoverBorder: "hover:border-cyan-500/30",
     hoverBg: "hover:bg-cyan-500 hover:text-white hover:shadow-md hover:shadow-cyan-500/20",
-    skills: ["Java", "JavaScript", "Python", "Solidity", "HTML & CSS"]
+    skills: ["Java", "JavaScript", "Python", "Solidity"]
   },
   {
     title: "Frontend",
@@ -22,7 +22,7 @@ const skillCategories = [
     dotColor: "bg-indigo-500",
     hoverBorder: "hover:border-indigo-500/30",
     hoverBg: "hover:bg-indigo-500 hover:text-white hover:shadow-md hover:shadow-indigo-500/20",
-    skills: ["AR.js", "React.js", "Vite"]
+    skills: ["HTML & CSS", "React.js", "Vite"]
   },
   {
     title: "Backend",
