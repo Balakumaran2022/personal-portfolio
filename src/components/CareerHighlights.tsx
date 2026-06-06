@@ -252,7 +252,7 @@ const CareerHighlights = () => {
     if (!isAutoPlaying || slides.length <= 1) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
