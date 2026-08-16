@@ -58,7 +58,7 @@ const Experience = () => {
       <div className="container px-6 relative z-10">
         <FadeIn className="text-center mb-16">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            Experience & <span className="gradient-text">Education</span>
+            Career &amp; <span className="gradient-text">Education</span>
           </h2>
         </FadeIn>
 
