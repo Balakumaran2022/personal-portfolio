@@ -63,9 +63,54 @@ const Experience = () => {
         </FadeIn>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Internship Experience */}
-          <FadeIn direction="left">
-            <div className="flex items-center gap-3 mb-8">
+          {/* Left Column: Work Experience & Internships */}
+          <div>
+            {/* Work Experience */}
+            <FadeIn direction="left" className="mb-10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Briefcase className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-heading text-2xl font-semibold">Work Experience</h3>
+              </div>
+
+              <ThreeDCard className="p-6 rounded-xl bg-background/40 dark:bg-card/40 backdrop-blur-md border border-border hover:border-primary/30 transition-all duration-300">
+                <div className="flex gap-4 items-start">
+                  <svg viewBox="0 0 100 100" className="w-12 h-12 rounded-xl overflow-hidden shrink-0 shadow-md select-none">
+                    <defs>
+                      <linearGradient id="ieyalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#d946ef" />
+                        <stop offset="100%" stopColor="#ef4444" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#ieyalGrad)" />
+                    <text x="50%" y="65%" fill="white" fontSize="48" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">இ</text>
+                  </svg>
+                  <div className="flex-1">
+                    <h4 className="font-heading text-lg font-bold text-foreground mb-0.5">
+                      Trainee Frontend Developer
+                    </h4>
+                    <p className="text-primary text-sm font-medium mb-2">
+                      ieyal Solutions
+                    </p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5" />
+                        Jul 2026 - Present
+                      </span>
+                      <span>•</span>
+                      <span>Tiruvarur, Tamil Nadu, India</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground/90 leading-relaxed justify-clean">
+                      Joined iEYAL Solutions Pvt. Ltd. as a Trainee Frontend Developer! Learning, contributing, and growing with the engineering team.
+                    </p>
+                  </div>
+                </div>
+              </ThreeDCard>
+            </FadeIn>
+
+            {/* Internship Experience */}
+            <div className="flex items-center gap-3 mb-6">
               <div className="p-2 rounded-lg bg-primary/10">
                 <Briefcase className="w-6 h-6 text-primary" />
               </div>
@@ -100,7 +145,7 @@ const Experience = () => {
                 </StaggerItem>
               ))}
             </StaggerContainer>
-          </FadeIn>
+          </div>
 
           {/* Education */}
           <FadeIn direction="right">
