@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 
-emailjs.init("kWnDB2-ysaAtodn6N");
+emailjs.init("YaDsxvivIx8beO6Sk");
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -18,7 +18,7 @@ const Contact = () => {
         "service_jesl9jl",
         "template_bv528pt",
         formRef.current!,
-        "kWnDB2-ysaAtodn6N"
+        "YaDsxvivIx8beO6Sk"
       )
       .then(
         () => {
