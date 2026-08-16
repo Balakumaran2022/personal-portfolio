@@ -14,21 +14,20 @@ interface Particle3D {
 
 const ParticleBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const mousePositionRef = useRef({ x: 0, y: 0 });
+  const orb1Ref = useRef<HTMLDivElement>(null);
+  const orb2Ref = useRef<HTMLDivElement>(null);
+  const orb3Ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  // Mouse move listener
+  // Mouse move listener (updates ref only - no React state re-renders)
   useEffect(() => {
-    // Start centered
     const initX = window.innerWidth / 2;
     const initY = window.innerHeight / 2;
-    setMousePosition({ x: initX, y: initY });
     mousePositionRef.current = { x: initX, y: initY };
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
       mousePositionRef.current = { x: e.clientX, y: e.clientY };
     };
 
@@ -91,6 +90,17 @@ const ParticleBackground = () => {
       // Smooth ease mouse coordinates
       currentMouse.x += (mousePositionRef.current.x - currentMouse.x) * 0.05;
       currentMouse.y += (mousePositionRef.current.y - currentMouse.y) * 0.05;
+
+      // Update background blur orbs directly via hardware-accelerated DOM transforms
+      if (orb1Ref.current) {
+        orb1Ref.current.style.transform = `translate3d(${currentMouse.x}px, ${currentMouse.y}px, 0) translate(-50%, -50%)`;
+      }
+      if (orb2Ref.current) {
+        orb2Ref.current.style.transform = `translate3d(${currentMouse.x + 80}px, ${currentMouse.y + 80}px, 0) translate(-50%, -50%)`;
+      }
+      if (orb3Ref.current) {
+        orb3Ref.current.style.transform = `translate3d(${currentMouse.x - 60}px, ${currentMouse.y - 60}px, 0) translate(-50%, -50%)`;
+      }
 
       // 3D rotations angles per frame (medium speed)
       const angleY = 0.0012; // yaw
@@ -246,49 +256,52 @@ const ParticleBackground = () => {
         className="absolute inset-0 w-full h-full block"
       />
 
-      {/* PRIMARY mouse-follow orb — big, vivid, hardware-accelerated */}
-      <motion.div
-        className="absolute rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+      {/* PRIMARY mouse-follow orb — big, vivid, hardware-accelerated via direct transform */}
+      <div
+        ref={orb1Ref}
+        className="absolute rounded-full pointer-events-none will-change-transform"
         style={{
           width: "45vw",
           height: "45vw",
+          top: 0,
+          left: 0,
           background: isDark
             ? "radial-gradient(circle, hsl(195 100% 50% / 0.16) 0%, transparent 70%)"
             : "radial-gradient(circle, hsl(221 83% 40% / 0.12) 0%, transparent 70%)",
           filter: "blur(60px)",
         }}
-        animate={{ x: mousePosition.x, y: mousePosition.y }}
-        transition={{ type: "spring", damping: 35, stiffness: 90, mass: 0.4 }}
       />
 
       {/* SECONDARY lagging orb — accent color */}
-      <motion.div
-        className="absolute rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+      <div
+        ref={orb2Ref}
+        className="absolute rounded-full pointer-events-none will-change-transform"
         style={{
           width: "30vw",
           height: "30vw",
+          top: 0,
+          left: 0,
           background: isDark
             ? "radial-gradient(circle, hsl(280 100% 65% / 0.14) 0%, transparent 70%)"
             : "radial-gradient(circle, hsl(280 80% 45% / 0.08) 0%, transparent 70%)",
           filter: "blur(50px)",
         }}
-        animate={{ x: mousePosition.x + 80, y: mousePosition.y + 80 }}
-        transition={{ type: "spring", damping: 55, stiffness: 70, mass: 0.9 }}
       />
 
       {/* TERTIARY slow orb */}
-      <motion.div
-        className="absolute rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+      <div
+        ref={orb3Ref}
+        className="absolute rounded-full pointer-events-none will-change-transform"
         style={{
           width: "20vw",
           height: "20vw",
+          top: 0,
+          left: 0,
           background: isDark
             ? "radial-gradient(circle, hsl(195 100% 70% / 0.08) 0%, transparent 70%)"
             : "radial-gradient(circle, hsl(221 83% 55% / 0.06) 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
-        animate={{ x: mousePosition.x - 60, y: mousePosition.y - 60 }}
-        transition={{ type: "spring", damping: 65, stiffness: 55, mass: 1.2 }}
       />
 
       {/* Floating ambient slow circular-moving background gradients */}
@@ -322,3 +335,4 @@ const ParticleBackground = () => {
 };
 
 export default ParticleBackground;
+

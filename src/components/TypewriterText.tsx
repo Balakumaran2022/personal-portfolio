@@ -14,9 +14,10 @@ const TypewriterText = ({ text, className = "", delay = 0, speed = 0.05 }: Typew
   const cursorControls = useAnimation();
 
   useEffect(() => {
+    let interval: NodeJS.Timeout | number;
     const timeout = setTimeout(() => {
       let currentIndex = 0;
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         if (currentIndex <= text.length) {
           setDisplayedText(text.slice(0, currentIndex));
           currentIndex++;
@@ -25,11 +26,12 @@ const TypewriterText = ({ text, className = "", delay = 0, speed = 0.05 }: Typew
           setIsComplete(true);
         }
       }, speed * 1000);
-
-      return () => clearInterval(interval);
     }, delay * 1000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
   }, [text, delay, speed]);
 
   useEffect(() => {

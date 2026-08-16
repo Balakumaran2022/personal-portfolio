@@ -36,23 +36,46 @@ const CustomCursor = () => {
   // List of active trail particles
   const particles = useRef<Particle[]>([]);
 
+  // Refs to prevent animation loop tear-downs on state changes
+  const isHoveredRef = useRef(isHovered);
+  isHoveredRef.current = isHovered;
+  const isClickedRef = useRef(isClicked);
+  isClickedRef.current = isClicked;
+  const isVisibleRef = useRef(isVisible);
+  isVisibleRef.current = isVisible;
+
   useEffect(() => {
     // 1. Mouse move listener to update target coordinate
     const handleMouseMove = (e: MouseEvent) => {
       target.current.x = e.clientX;
       target.current.y = e.clientY;
-      setIsVisible(true);
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+        setIsVisible(true);
+      }
     };
 
     // 2. Click states
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
+    const handleMouseDown = () => {
+      isClickedRef.current = true;
+      setIsClicked(true);
+    };
+    const handleMouseUp = () => {
+      isClickedRef.current = false;
+      setIsClicked(false);
+    };
 
     // 3. Visibility states (hide cursor when mouse leaves window)
-    const handleMouseLeaveDoc = () => setIsVisible(false);
-    const handleMouseEnterDoc = () => setIsVisible(true);
+    const handleMouseLeaveDoc = () => {
+      isVisibleRef.current = false;
+      setIsVisible(false);
+    };
+    const handleMouseEnterDoc = () => {
+      isVisibleRef.current = true;
+      setIsVisible(true);
+    };
 
-    // 4. Hover detection via event delegation
+    // 4. Hover detection via event delegation (guarded against redundant state updates)
     const handleMouseOver = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       if (!el) return;
@@ -68,7 +91,11 @@ const CustomCursor = () => {
         el.closest(".hover-target") ||
         el.getAttribute("role") === "button";
 
-      setIsHovered(!!interactive);
+      const newHover = !!interactive;
+      if (isHoveredRef.current !== newHover) {
+        isHoveredRef.current = newHover;
+        setIsHovered(newHover);
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -112,13 +139,13 @@ const CustomCursor = () => {
     };
   }, []);
 
-  // Animation Loop (High Performance direct style manipulations to avoid React redraw overhead)
+  // Animation Loop (High Performance direct style manipulations, runs continuously without tear-down)
   useEffect(() => {
     let animationFrameId: number;
 
     const getRandomColor = () => {
       if (isDark) {
-        // Neon palette matching user reference: Red, Cyan, Indigo/Purple, Pink, Gold
+        // Neon palette: Red, Cyan, Indigo/Purple, Pink, Gold
         const colors = ["#ef4444", "#06b6d4", "#a855f7", "#ec4899", "#f59e0b"];
         return colors[Math.floor(Math.random() * colors.length)];
       } else {
@@ -129,12 +156,14 @@ const CustomCursor = () => {
     };
 
     const update = () => {
+      const isClickedVal = isClickedRef.current;
+      const isHoveredVal = isHoveredRef.current;
+      const isVisibleVal = isVisibleRef.current;
+
       // 1. Smooth cursor trailing positions
-      // Main pointer follows mouse target quickly
       current.current.x += (target.current.x - current.current.x) * 0.75;
       current.current.y += (target.current.y - current.current.y) * 0.75;
 
-      // Secondary trail circle lagging behind
       trail.current.x += (target.current.x - trail.current.x) * 0.18;
       trail.current.y += (target.current.y - trail.current.y) * 0.18;
 
@@ -145,11 +174,9 @@ const CustomCursor = () => {
       velocity.current.y += (dy - velocity.current.y) * 0.1;
 
       // 3. 3D flight-like tilt logic
-      // Pitch/Yaw tilts based on velocity (cap at 25 degrees)
       const pitch = Math.max(-25, Math.min(25, -velocity.current.y * 0.8));
       const yaw = Math.max(-25, Math.min(25, velocity.current.x * 0.8));
       
-      // Decay tilt slowly if mouse stops moving
       currentTilt.current.x += (pitch - currentTilt.current.x) * 0.15;
       currentTilt.current.y += (yaw - currentTilt.current.y) * 0.15;
 
@@ -159,25 +186,24 @@ const CustomCursor = () => {
         const y = current.current.y;
         const tiltX = currentTilt.current.x;
         const tiltY = currentTilt.current.y;
-        const scale = isClicked ? 0.88 : isHovered ? 1.15 : 1.0;
+        const scale = isClickedVal ? 0.88 : isHoveredVal ? 1.15 : 1.0;
         
-        // Translate to mouse position, rotate 3D, and apply scaling
         cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(${scale})`;
-        cursorRef.current.style.opacity = isVisible ? "1" : "0";
+        cursorRef.current.style.opacity = isVisibleVal ? "1" : "0";
       }
 
       // 5. Update lagging outer trail halo styles
       if (trailRef.current) {
         const tx = trail.current.x;
         const ty = trail.current.y;
-        const scale = isHovered ? 1.6 : 1.0;
+        const scale = isHoveredVal ? 1.6 : 1.0;
         trailRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0) translate(-50%, -50%) scale(${scale})`;
-        trailRef.current.style.opacity = isVisible ? "0.6" : "0";
+        trailRef.current.style.opacity = isVisibleVal ? "0.6" : "0";
       }
 
       // 6. Spawn particles in 3D-like trail
       const speed = Math.sqrt(dx * dx + dy * dy);
-      if (speed > 1.5 && isVisible && Math.random() < 0.35) {
+      if (speed > 1.5 && isVisibleVal && Math.random() < 0.35) {
         particles.current.push({
           x: target.current.x,
           y: target.current.y,
@@ -190,28 +216,24 @@ const CustomCursor = () => {
         });
       }
 
-      // 7. Draw trail particles on overlay canvas
+      // 7. Draw trail particles on overlay canvas (Hardware-accelerated rendering without expensive shadowBlur)
       const canvas = canvasRef.current;
       if (canvas) {
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           
-          particles.current.forEach((p, idx) => {
+          particles.current.forEach((p) => {
             p.x += p.vx;
             p.y += p.vy;
             p.alpha -= p.decay;
-            p.size *= 0.97; // shrink slightly
+            p.size *= 0.97;
             
             if (p.alpha > 0) {
               ctx.save();
               ctx.globalAlpha = p.alpha;
               ctx.beginPath();
               ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-              
-              // Shadow/Glow effect on particle nodes
-              ctx.shadowBlur = 6;
-              ctx.shadowColor = p.color;
               ctx.fillStyle = p.color;
               ctx.fill();
               ctx.restore();
@@ -229,7 +251,7 @@ const CustomCursor = () => {
     update();
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isDark, isClicked, isHovered, isVisible]);
+  }, [isDark]);
 
   return (
     <>
