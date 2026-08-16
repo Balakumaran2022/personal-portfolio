@@ -308,6 +308,7 @@ const CareerHighlights = () => {
               key={slide.id + "-" + (activeImageMap[slide.id] || slide.image)}
               src={activeImageMap[slide.id] || slide.image}
               alt={slide.title}
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover cursor-zoom-in"
               onClick={() => openLightbox(activeImageMap[slide.id] || slide.image)}
               initial={{ opacity: 0, scale: 1.05 }}
@@ -397,7 +398,7 @@ const CareerHighlights = () => {
                               currentActiveImg === imgUrl ? "border-primary scale-105" : "border-white/30 opacity-70 hover:opacity-100"
                             }`}
                           >
-                            <img src={imgUrl} className="w-full h-full object-cover" alt={`thumbnail-${idx}`} />
+                            <img src={imgUrl} className="w-full h-full object-cover" loading="lazy" alt={`thumbnail-${idx}`} />
                           </button>
                         );
                       })}
@@ -414,6 +415,7 @@ const CareerHighlights = () => {
                         >
                           <img 
                             src={slide.image} 
+                            loading="lazy"
                             className="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-105 transition-all" 
                             alt="video-thumbnail" 
                           />
