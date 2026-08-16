@@ -52,21 +52,14 @@ const Hero = () => {
           >
             <TypeAnimation
               sequence={[
-                'Software Developer',
-                2000,
                 'MERN Stack Developer',
-                2000,
-                'Blockchain Developer',
-                2000,
-                'Java Developer',
-                2000,
+                1000,
               ]}
               wrapper="span"
               speed={50}
               style={{ display: 'inline-block' }}
-              cursor={true}
-              repeat={Infinity}
-              deletionSpeed={65}
+              cursor={false}
+              repeat={0}
             />
           </motion.div>
           
