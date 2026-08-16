@@ -45,8 +45,23 @@ const CustomCursor = () => {
   isVisibleRef.current = isVisible;
 
   useEffect(() => {
-    // 1. Mouse move listener to update target coordinate
+    // 1. Mouse move listener to update target coordinate and check scrollbar boundary
     const handleMouseMove = (e: MouseEvent) => {
+      // Hide custom cursor if mouse is over the native browser scrollbar or outside window bounds
+      const isOverScrollbar = 
+        e.clientX >= document.documentElement.clientWidth || 
+        e.clientX <= 0 || 
+        e.clientY <= 0 || 
+        e.clientY >= window.innerHeight;
+
+      if (isOverScrollbar) {
+        if (isVisibleRef.current) {
+          isVisibleRef.current = false;
+          setIsVisible(false);
+        }
+        return;
+      }
+
       target.current.x = e.clientX;
       target.current.y = e.clientY;
       if (!isVisibleRef.current) {
@@ -65,14 +80,18 @@ const CustomCursor = () => {
       setIsClicked(false);
     };
 
-    // 3. Visibility states (hide cursor when mouse leaves window)
-    const handleMouseLeaveDoc = () => {
-      isVisibleRef.current = false;
-      setIsVisible(false);
+    // 3. Visibility states (hide cursor when mouse leaves window or hits scrollbar)
+    const handleMouseLeaveDoc = (e: MouseEvent) => {
+      if (!e.relatedTarget || e.clientX >= document.documentElement.clientWidth || e.clientX <= 0 || e.clientY <= 0 || e.clientY >= window.innerHeight) {
+        isVisibleRef.current = false;
+        setIsVisible(false);
+      }
     };
-    const handleMouseEnterDoc = () => {
-      isVisibleRef.current = true;
-      setIsVisible(true);
+    const handleMouseEnterDoc = (e: MouseEvent) => {
+      if (e.clientX < document.documentElement.clientWidth && e.clientX > 0 && e.clientY > 0 && e.clientY < window.innerHeight) {
+        isVisibleRef.current = true;
+        setIsVisible(true);
+      }
     };
 
     // 4. Hover detection via event delegation (guarded against redundant state updates)
