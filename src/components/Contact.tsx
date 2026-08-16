@@ -17,7 +17,8 @@ const Contact = () => {
       .sendForm(
         "service_jesl9jl",
         "template_bv528pt",
-        formRef.current!
+        formRef.current!,
+        "kWnDB2-ysaAtodn6N"
       )
       .then(
         () => {
@@ -25,8 +26,8 @@ const Contact = () => {
           formRef.current?.reset();
         },
         (error) => {
-          console.error(error);
-          alert("Failed to send message.");
+          console.error("EmailJS Error Details:", error);
+          alert(`Failed to send message: ${error.text || error.message || "Please check your EmailJS Credentials."}`);
         }
       );
   };
