@@ -52,13 +52,13 @@ const Hero = () => {
           >
             <TypeAnimation
               sequence={[
-                'Software Development',
+                'Software Developer',
                 2000,
-                'MERN Stack Development',
+                'MERN Stack Developer',
                 2000,
-                'Blockchain Development',
+                'Blockchain Developer',
                 2000,
-                'Java Development',
+                'Java Developer',
                 2000,
               ]}
               wrapper="span"
