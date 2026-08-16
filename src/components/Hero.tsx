@@ -65,30 +65,20 @@ const Hero = () => {
           
           {/* Description */}
           <motion.div 
-            className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10 min-h-[80px]"
-            initial={{ opacity: 0, y: 30 }}
+            className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 4 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <TypeAnimation
-              sequence={[
-                "Building modern, scalable, and secure applications for the next generation of digital experiences.",
-                1000
-              ]}
-              wrapper="p"
-              speed={60}
-              style={{ display: 'block' }}
-              cursor={true}
-              repeat={0}
-            />
+            <p style={{ display: 'block' }}>Building modern, scalable, and secure applications for the next generation of digital experiences.</p>
           </motion.div>
 
           {/* CTA Buttons */}
           <motion.div 
             className="flex flex-wrap items-center justify-center gap-4 mb-12"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 4.2 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
             <Button variant="hero" size="lg" asChild>
               <a href="#contact">
@@ -112,9 +102,9 @@ const Hero = () => {
           {/* Social links */}
           <motion.div 
             className="flex items-center justify-center gap-6"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 4.4 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
           >
             {[
               { href: "https://github.com/Balakumaran2022", icon: Github, label: "GitHub" },
@@ -132,7 +122,7 @@ const Hero = () => {
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ 
-                  delay: 4.6 + index * 0.1,
+                  delay: 0.8 + index * 0.08,
                   type: "spring",
                   stiffness: 200,
                   damping: 15

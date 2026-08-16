@@ -42,7 +42,7 @@ const ParticleBackground = () => {
 
     let animationFrameId: number;
     const particles: Particle3D[] = [];
-    const numParticles = 80;
+    const numParticles = 55;
     const fov = 350;
     const maxDepth = 600;
     const minDepth = -150;
