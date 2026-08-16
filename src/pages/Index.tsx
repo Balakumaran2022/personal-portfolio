@@ -8,6 +8,8 @@ const QuoteCard = lazy(() => import("@/components/QuoteCard"));
 const Skills = lazy(() => import("@/components/Skills"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Experience = lazy(() => import("@/components/Experience"));
+const Education = lazy(() => import("@/components/Education"));
+const Certifications = lazy(() => import("@/components/Certifications"));
 const Achievements = lazy(() => import("@/components/Achievements"));
 const CareerHighlights = lazy(() => import("@/components/CareerHighlights"));
 const Contact = lazy(() => import("@/components/Contact"));
@@ -32,6 +34,12 @@ const Index = () => {
         </Suspense>
         <Suspense fallback={<div className="py-24" />}>
           <Experience />
+        </Suspense>
+        <Suspense fallback={<div className="py-24" />}>
+          <Education />
+        </Suspense>
+        <Suspense fallback={<div className="py-24" />}>
+          <Certifications />
         </Suspense>
         <Suspense fallback={<div className="py-24" />}>
           <Achievements />
