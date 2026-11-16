@@ -1,8 +1,6 @@
 import { Github, Linkedin, FileDown, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import TypewriterText from "./TypewriterText";
-import { TypeAnimation } from "react-type-animation";
 
 const LeetcodeIcon = ({ className }: { className?: string }) => (
   <svg
@@ -22,59 +20,39 @@ const Hero = () => {
       <div className="container relative z-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
 
-          {/* Name with Typewriter Effect */}
-          <motion.h1 
-            className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-            initial={{ opacity: 0, y: 30 }}
+          {/* Name - Immediate, Crisp Render */}
+          <motion.h1
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.4 }}
           >
-            <TypewriterText 
-              text="Bala" 
-              className="text-foreground" 
-              delay={0.5} 
-              speed={0.1}
-            />{" "}
-            <TypewriterText 
-              text="Kumaran M" 
-              className="gradient-text" 
-              delay={1.2} 
-              speed={0.1}
-            />
+            <span className="text-foreground">Bala </span>
+            <span className="gradient-text">Kumaran M</span>
           </motion.h1>
 
-          {/* Title with Rotating Roles */}
-          <motion.div 
-            className="text-xl md:text-2xl text-muted-foreground mb-4 min-h-[36px]"
-            initial={{ opacity: 0, y: 30 }}
+          {/* Title / Role */}
+          <motion.div
+            className="text-lg sm:text-xl md:text-2xl font-semibold text-primary/95 mb-4 tracking-wide"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <TypeAnimation
-              sequence={[
-                'MERN Stack Developer',
-                1000,
-              ]}
-              wrapper="span"
-              speed={50}
-              style={{ display: 'inline-block' }}
-              cursor={false}
-              repeat={0}
-            />
+            Software Engineer &amp; Full Stack Developer
           </motion.div>
-          
+
           {/* Description */}
-          <motion.div 
-            className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-10"
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
           >
-            <p style={{ display: 'block' }}>Building modern, scalable, and secure applications for the next generation of digital experiences.</p>
+            <p>Specializing in Java, Spring Boot, React, and Scalable Web Technologies. Passionate about building high-performance, clean-architecture software solutions.</p>
           </motion.div>
 
           {/* CTA Buttons */}
-          <motion.div 
+          <motion.div
             className="flex flex-wrap items-center justify-center gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,11 +78,11 @@ const Hero = () => {
           </motion.div>
 
           {/* Social links */}
-          <motion.div 
-            className="flex items-center justify-center gap-6"
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            className="flex items-center justify-center gap-4 sm:gap-5"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
+            transition={{ duration: 0.4, delay: 0.25 }}
           >
             {[
               { href: "https://github.com/Balakumaran2022", icon: Github, label: "GitHub" },
@@ -116,19 +94,19 @@ const Hero = () => {
                 href={social.href}
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="p-3 rounded-xl bg-secondary/50 border border-border hover:border-primary hover:bg-secondary transition-all duration-300 hover:shadow-[0_0_20px_hsl(195_100%_50%_/_0.3)]"
-                whileHover={{ scale: 1.15, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ 
-                  delay: 0.8 + index * 0.08,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15
+                className="p-3 rounded-xl bg-card/60 backdrop-blur-sm border border-border/80 text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-secondary/70 transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-primary/5"
+                whileHover={{ scale: 1.06, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: 0.3 + index * 0.06,
+                  ease: "easeOut"
                 }}
+                aria-label={social.label}
               >
-                <social.icon className="w-6 h-6" />
+                <social.icon className="w-5 h-5 sm:w-5 sm:h-5" />
               </motion.a>
             ))}
           </motion.div>

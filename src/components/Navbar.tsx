@@ -3,13 +3,12 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
-  { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
   { name: "Education", href: "#education" },
   { name: "Certifications", href: "#certifications" },
-  { name: "Achievements", href: "#achievements" },
-  { name: "Highlights", href: "#highlights" },
+  { name: "Honors", href: "#achievements" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -36,29 +35,32 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
 
-          {/* LOGO */}
-          <a
-            href="#"
-            className="font-heading font-bold text-lg sm:text-xl md:text-2xl 
-                       max-w-[70%] truncate gradient-text flex items-center gap-2"
-          >
-            Portfolio
-          </a>
+          {/* LEFT: BRAND LOGO */}
+          <div className="flex-1 flex items-center">
+            <a
+              href="#"
+              className="font-heading font-bold text-lg sm:text-xl gradient-text flex items-center gap-2"
+            >
+              Bala Kumaran
+            </a>
+          </div>
 
-          {/* DESKTOP NAV */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* CENTER: DESKTOP NAVIGATION */}
+          <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.name}
               </a>
             ))}
-            <div className="pl-4 border-l border-border">
-              <ThemeToggle />
-            </div>
+          </nav>
+
+          {/* RIGHT: DESKTOP CONTROLS */}
+          <div className="flex-1 hidden md:flex items-center justify-end gap-3">
+            <ThemeToggle />
           </div>
 
           {/* MOBILE CONTROLS */}
@@ -80,8 +82,8 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-lg border-t border-border">
-            <div className="flex flex-col gap-6 py-6 px-6">
+          <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto shadow-2xl">
+            <div className="flex flex-col gap-5 py-6 px-6">
               {navLinks.map((link) => (
                 <a
                   key={link.name}

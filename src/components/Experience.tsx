@@ -1,125 +1,162 @@
-import { Briefcase, Calendar } from "lucide-react";
-import { FadeIn, StaggerContainer, StaggerItem } from "./AnimatedSection";
-import ThreeDCard from "./ThreeDCard";
+import { Calendar, MapPin, CheckCircle2 } from "lucide-react";
+import { FadeIn } from "./AnimatedSection";
 
 const internships = [
   {
-    title: "Java Full Stack Development",
+    title: "Java Full Stack Development Intern",
     company: "i5 Technology",
     duration: "1 Month",
-    type: "Internship"
+    logoText: "i5",
+    logoGradient: "from-blue-600 to-cyan-500",
+    description: "Built full-stack web application modules using Java and Spring Boot. Designed MVC architecture, RESTful endpoints, and relational database schemas with MySQL.",
+    tech: ["Java", "Spring Boot", "MySQL", "REST APIs"]
   },
   {
-    title: "Data Analytics",
-    company: "Cognifyz (Remote)",
-    duration: "1 Month",
-    type: "Internship"
-  },
-  {
-    title: "Blockchain Internship",
-    company: "Technohacks",
-    duration: "1 Month",
-    year: "2024",
-    type: "Learning"
+    title: "Data Analytics Intern",
+    company: "Cognifyz Technologies",
+    duration: "1 Month (Remote)",
+    logoText: "CZ",
+    logoGradient: "from-violet-600 to-purple-500",
+    description: "Performed data cleaning, exploratory data analysis (EDA), and statistical modeling on real-world datasets using Python and data visualization libraries.",
+    tech: ["Python", "Data Analysis", "Pandas", "Visualization"]
   }
 ];
 
 const Experience = () => {
   return (
     <section id="experience" className="py-24 relative">
-      <div className="container px-6 relative z-10">
+      <div className="container px-4 sm:px-6 max-w-5xl mx-auto">
         <FadeIn className="text-center mb-16">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             Work <span className="gradient-text">Experience</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Professional trajectory, industry roles, and internships
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Industry engineering experience, active roles, and focused technical internships
           </p>
         </FadeIn>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Work Experience */}
-          <FadeIn direction="left">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <Briefcase className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading text-2xl font-semibold">Roles</h3>
-            </div>
-
-            <ThreeDCard className="p-6 rounded-xl bg-background/40 dark:bg-card/40 backdrop-blur-md border border-border hover:border-primary/30 transition-all duration-300 shadow-lg">
-              <div className="flex gap-4 items-start">
-                <svg viewBox="0 0 100 100" className="w-12 h-12 rounded-xl overflow-hidden shrink-0 shadow-md select-none">
-                  <defs>
-                    <linearGradient id="ieyalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#d946ef" />
-                      <stop offset="100%" stopColor="#ef4444" />
-                    </linearGradient>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#ieyalGrad)" />
-                  <text x="50%" y="65%" fill="white" fontSize="48" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">இ</text>
-                </svg>
-                <div className="flex-1">
-                  <h4 className="font-heading text-lg font-bold text-foreground mb-0.5 leading-snug">
+        {/* 1. CURRENT FEATURED WORK EXPERIENCE */}
+        <FadeIn className="mb-12">
+          <div className="p-6 sm:p-8 rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/5">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+              <div className="flex items-start gap-4">
+                {/* Official Company Logo */}
+                <div className="w-12 h-12 rounded-xl overflow-hidden border border-border/80 shadow-md shrink-0 select-none bg-background">
+                  <img
+                    src="/ieyal-logo.png"
+                    alt="iEYAL Solutions Official Logo"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-foreground">
                     Trainee Frontend Developer
-                  </h4>
-                  <p className="text-primary text-sm font-medium mb-2">
-                    ieyal Solutions
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground mb-3">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      Jul 2026 - Present
-                    </span>
-                    <span>•</span>
-                    <span>Tiruvarur, Tamil Nadu, India</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground/90 leading-relaxed justify-clean">
-                    Joined iEYAL Solutions Pvt. Ltd. as a Trainee Frontend Developer! Learning, contributing, and growing with the engineering team.
+                  </h3>
+                  <p className="text-primary font-semibold text-base">
+                    iEYAL Solutions Pvt. Ltd.
                   </p>
                 </div>
               </div>
-            </ThreeDCard>
-          </FadeIn>
-
-          {/* Internship Experience */}
-          <FadeIn direction="right">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <Briefcase className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading text-2xl font-semibold">Internships</h3>
             </div>
-            
-            <StaggerContainer className="space-y-4">
-              {internships.map((item, index) => (
-                <StaggerItem key={index} className="h-full">
-                  <ThreeDCard className="p-6 rounded-xl bg-background/40 dark:bg-card/40 backdrop-blur-md border border-border hover:border-primary/30 transition-all duration-300 shadow-lg">
-                    <h4 
-                      className="font-heading text-lg font-bold text-foreground mb-1.5 leading-snug"
-                      style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}
-                    >
-                      {item.title}
-                    </h4>
-                    <p 
-                      className="text-primary text-sm font-medium mb-3"
-                      style={{ transform: "translateZ(15px)", transformStyle: "preserve-3d" }}
-                    >
-                      {item.company}
-                    </p>
-                    <div 
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                      style={{ transform: "translateZ(10px)", transformStyle: "preserve-3d" }}
-                    >
-                      <Calendar className="w-4 h-4" />
-                      <span>{item.duration}</span>
-                      {item.year && <span>• {item.year}</span>}
-                    </div>
-                  </ThreeDCard>
-                </StaggerItem>
+
+            {/* Meta info */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground mb-5 pb-5 border-b border-border/60">
+              <span className="flex items-center gap-1.5 font-medium">
+                <Calendar className="w-4 h-4 text-primary" />
+                Jul 2026 - Present
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-4 h-4 text-primary" />
+                Tiruvarur, Tamil Nadu, India
+              </span>
+            </div>
+
+            {/* Concise Engineering Responsibilities */}
+            <ul className="space-y-2.5 text-sm text-muted-foreground mb-6 leading-relaxed">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <span>Developing responsive, accessible, and high-performance web user interfaces using <strong>React.js</strong> and modern <strong>Tailwind CSS</strong>.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <span>Integrating backend <strong>RESTful APIs</strong>, handling client-side state, and maintaining seamless cross-browser consistency.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <span>Collaborating within an agile team workflow, following version control best practices with <strong>Git & GitHub</strong>.</span>
+              </li>
+            </ul>
+
+            {/* Tech Badges */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {["React.js", "Tailwind CSS", "JavaScript / TypeScript", "REST APIs", "Git", "UI/UX Optimization"].map((t) => (
+                <span 
+                  key={t}
+                  className="px-2.5 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground border border-border/50"
+                >
+                  {t}
+                </span>
               ))}
-            </StaggerContainer>
-          </FadeIn>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* 2. TECHNICAL INTERNSHIPS (Balanced 2-Column Grid) */}
+        <div>
+          <div className="mb-6 flex items-center gap-2">
+            <h3 className="font-heading text-xl font-bold text-foreground">
+              Technical Internships
+            </h3>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {internships.map((internship) => (
+              <FadeIn key={internship.title} className="h-full">
+                <div className="p-6 rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 flex flex-col justify-between h-full shadow-sm hover:shadow-lg">
+                  <div>
+                    <div className="flex items-start gap-3.5 mb-4">
+                      {/* Logo Avatar */}
+                      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${internship.logoGradient} flex items-center justify-center text-white font-bold text-sm tracking-wide shadow-sm shrink-0 select-none`}>
+                        {internship.logoText}
+                      </div>
+
+                      <div className="flex-1">
+                        <h4 className="font-heading text-lg font-bold text-foreground leading-snug">
+                          {internship.title}
+                        </h4>
+                        <p className="text-primary font-medium text-sm">
+                          {internship.company}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
+                      <Calendar className="w-3.5 h-3.5 text-primary" />
+                      <span>{internship.duration}</span>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-5">
+                      {internship.description}
+                    </p>
+                  </div>
+
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60 mt-auto">
+                    {internship.tech.map((t) => (
+                      <span 
+                        key={t}
+                        className="px-2 py-0.5 text-[11px] font-medium rounded-md bg-secondary text-secondary-foreground border border-border/50"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>
