@@ -189,98 +189,118 @@ const Projects = () => {
         </FadeIn>
       </div>
 
-      {/* High-Performance GPU Marquee Animation */}
+      {/* Injecting marquee animation styles */}
       <style>{`
-        @keyframes marquee-scroll {
-          0% { transform: translate3d(0, 0, 0); }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
           100% { transform: translate3d(-50%, 0, 0); }
         }
-        .animate-project-marquee {
+        .animate-marquee {
           display: flex;
           width: max-content;
-          animation: marquee-scroll 45s linear infinite;
-          will-change: transform;
+          animation: marquee 35s linear infinite;
         }
-        .animate-project-marquee:hover {
+        .animate-marquee:hover {
           animation-play-state: paused;
         }
       `}</style>
 
       <div className="w-full overflow-hidden relative py-4">
         {/* Soft fading edges for premium look */}
-        <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        <div className="animate-project-marquee gap-6 px-6">
+        <div className="animate-marquee gap-6 px-6">
           {[...projects, ...projects].map((project, idx) => (
-            <div
-              key={`${project.title}-${idx}`}
-              className="w-[340px] sm:w-[410px] shrink-0 group relative rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1"
-            >
-              {/* IMAGE */}
-              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-muted/40 shrink-0">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-background/95 text-foreground border border-border/60 shadow-sm">
-                  {project.demoType}
-                </div>
-              </div>
+            <div key={`${project.title}-${idx}`} className="w-[380px] sm:w-[450px] h-[500px] shrink-0 flex flex-col">
+              <ThreeDCard className="group relative rounded-3xl bg-white dark:bg-[#131b2e] border border-slate-200 dark:border-slate-800/80 overflow-hidden transition-all duration-500 h-full flex flex-col hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/30">
+                {/* IMAGE with HOVER OVERLAY */}
+                <div 
+                  className="relative h-[200px] w-full overflow-hidden shrink-0"
+                  style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  
+                  {/* Hover Overlay Container */}
+                  <div className="absolute inset-0 bg-slate-950/85 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center gap-4 p-4">
+                    
+                    {/* Action Links */}
+                    <div className="flex items-center gap-3">
+                      {project.githubLink && (
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/25 hover:scale-110 text-white transition-all duration-300 shadow-lg"
+                          title="View Code"
+                        >
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
+                      {project.demoLink && (
+                        <a
+                          href={project.demoLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/25 hover:scale-110 text-white transition-all duration-300 shadow-lg"
+                          title="Live Demo"
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      )}
+                    </div>
 
-              {/* CONTENT */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-0.5 text-[11px] font-medium rounded-md bg-secondary text-secondary-foreground border border-border/50"
-                      >
-                        {t}
-                      </span>
-                    ))}
+                    {/* Tech Badges inside Overlay */}
+                    <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-xs">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-white/10 text-white border border-white/10 hover:bg-white/20 transition-all duration-300 cursor-default"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Bottom Action Links */}
-                <div className="flex items-center gap-3 pt-3 border-t border-border/60 mt-auto">
-                  {project.demoLink && (
-                    <a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-sm"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      Live Demo
-                    </a>
-                  )}
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border transition-all"
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                      View Code
-                    </a>
-                  )}
+                {/* CONTENT */}
+                <div 
+                  className="px-6 py-5 flex-1 flex flex-col"
+                  style={{ transform: "translateZ(10px)", transformStyle: "preserve-3d" }}
+                >
+                  <a 
+                    href={project.demoLink || project.githubLink || "#"} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block mb-3 group/title"
+                  >
+                    <h3 className="font-heading text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5 group-hover/title:text-primary transition-colors text-left">
+                      {project.title}
+                      {project.demoLink ? (
+                        <ExternalLink className="w-4 h-4 opacity-30 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all duration-300 shrink-0" />
+                      ) : (
+                        <Github className="w-4 h-4 opacity-30 group-hover/title:opacity-100 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-all duration-300 shrink-0" />
+                      )}
+                    </h3>
+                  </a>
+
+                  <div className="text-slate-600 dark:text-slate-400 text-[13.5px] leading-relaxed flex-1 text-left">
+                    {typeof project.description === "string" ? (
+                      <p>
+                        {project.description}
+                      </p>
+                    ) : (
+                      project.description
+                    )}
+                  </div>
                 </div>
-              </div>
+              </ThreeDCard>
             </div>
           ))}
         </div>
