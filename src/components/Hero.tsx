@@ -94,7 +94,7 @@ const Hero = () => {
                 href={social.href}
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="p-3 rounded-xl bg-card/60 backdrop-blur-sm border border-border/80 text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-secondary/70 transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-primary/5"
+                className="p-3 rounded-xl bg-card border border-border/80 text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-secondary/70 transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-primary/5"
                 whileHover={{ scale: 1.06, y: -2 }}
                 whileTap={{ scale: 0.96 }}
                 initial={{ opacity: 0, y: 10 }}

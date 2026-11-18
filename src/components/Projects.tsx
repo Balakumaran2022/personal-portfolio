@@ -205,7 +205,7 @@ const Projects = () => {
                   decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-background/90 text-foreground backdrop-blur-md border border-border/60 shadow-sm">
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide bg-background/95 text-foreground border border-border/60 shadow-sm">
                   {project.demoType}
                 </div>
               </div>

@@ -5,7 +5,14 @@ const ParticleBackground = () => {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div 
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      style={{
+        transform: "translate3d(0, 0, 0)",
+        willChange: "transform",
+        contain: "strict"
+      }}
+    >
       {/* Modern High-Performance Tech Grid Background (0% CPU, no paint thrashing) */}
       <div 
         className="absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
