@@ -189,15 +189,36 @@ const Projects = () => {
         </FadeIn>
       </div>
 
-      <div className="container px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {projects.map((project, idx) => (
-            <div 
-              key={`${project.title}-${idx}`} 
-              className="group relative rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1"
+      {/* High-Performance GPU Marquee Animation */}
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-project-marquee {
+          display: flex;
+          width: max-content;
+          animation: marquee-scroll 45s linear infinite;
+          will-change: transform;
+        }
+        .animate-project-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div className="w-full overflow-hidden relative py-4">
+        {/* Soft fading edges for premium look */}
+        <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        <div className="animate-project-marquee gap-6 px-6">
+          {[...projects, ...projects].map((project, idx) => (
+            <div
+              key={`${project.title}-${idx}`}
+              className="w-[340px] sm:w-[410px] shrink-0 group relative rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all duration-300 flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1"
             >
               {/* IMAGE */}
-              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-muted/40">
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-muted/40 shrink-0">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -211,25 +232,27 @@ const Projects = () => {
               </div>
 
               {/* CONTENT */}
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2 flex items-center gap-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
 
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">
-                  {project.description}
-                </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3">
+                    {project.description}
+                  </p>
 
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {project.tech.map((t) => (
-                    <span 
-                      key={t}
-                      className="px-2.5 py-0.5 text-[11px] font-medium rounded-md bg-secondary text-secondary-foreground border border-border/50"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2.5 py-0.5 text-[11px] font-medium rounded-md bg-secondary text-secondary-foreground border border-border/50"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Bottom Action Links */}
