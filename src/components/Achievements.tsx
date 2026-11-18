@@ -1,4 +1,4 @@
-import { Trophy, Award, FileText, Heart, Lightbulb, Sparkles, Calendar, CheckCircle2, Eye, X } from "lucide-react";
+import { Trophy, Award, FileText, Heart, Lightbulb, Sparkles, Calendar, CheckCircle2, Eye, X, BookOpen } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "./AnimatedSection";
 import { useState } from "react";
 
@@ -57,6 +57,17 @@ const technicalHonors = [
     tags: ["Patent Drafting", "IP Protection", "Innovation"],
     color: "from-orange-500 to-amber-500",
     iconBg: "bg-orange-500/10 text-orange-500 dark:text-orange-400"
+  },
+  {
+    icon: BookOpen,
+    title: "5+ Technical Blogs & System Use Cases",
+    event: "Developer Community & Architecture Guides",
+    organization: "Technical Writing & Engineering Case Studies",
+    description: "Authored 5+ in-depth technical blogs and comprehensive system use cases analyzing scalable full-stack development, Spring Boot backend patterns, and real-world software engineering workflows.",
+    badge: "Technical Author",
+    tags: ["5+ Technical Blogs", "System Use Cases", "Full-Stack Architecture"],
+    color: "from-cyan-500 to-blue-500",
+    iconBg: "bg-cyan-500/10 text-cyan-500 dark:text-cyan-400"
   }
 ];
 
